@@ -4,6 +4,6 @@ steps:
   - package
 artifacts:
   objects:
-    location: "gs://${-_artifactforsparkonk8}/"
+    location: "gs://${_BUCKET}/"
     paths:
-    - "target/${_spark.scala}"
+    - "target/${_TARGET}"
