@@ -1,0 +1,9 @@
+steps:
+- name: "gcr.io/cloud-builders/mvn"
+  args:
+  - package
+artifacts:
+  objects:
+    location: "gs://${-_artifactforsparkonk8}/"
+    paths:
+    - "target/${_spark.scala}"
