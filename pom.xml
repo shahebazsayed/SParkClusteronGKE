@@ -13,24 +13,5 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
     </dependency>
-      
-
-  <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
-
-    <dependency>
-      <groupId>org.scala-lang</groupId>
-      <artifactId>scala-library</artifactId>
-      <version>Scala version, for example, 2.11.8</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.spark</groupId>
-      <artifactId>spark-core_Scala major.minor.version, for example, 2.11</artifactId>
-      <version>Spark version, for example, 2.3.1</version>
-      <scope>provided</scope>
-    </dependency>
   </dependencies>
 </project>
