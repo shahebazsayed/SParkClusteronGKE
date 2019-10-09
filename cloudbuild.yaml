@@ -7,3 +7,11 @@ artifacts:
     location: "gs://${_BUCKET}/"
     paths:
     - "target/${_TARGET}"
+- name: gcr.io/cloud-builders/kubectl
+  id: deploy-infrastructure
+  env: ['CLOUDSDK_COMPUTE_ZONE=us-central1-f', 'CLOUDSDK_CONTAINER_CLUSTER=features']
+  entrypoint: bash
+  args:
+   gcloud config set compute/zone us-central1-f
+   gcloud container clusters create spark-on-gke --machine-type n1-standard-2
+  
