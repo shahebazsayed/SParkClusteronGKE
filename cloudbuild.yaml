@@ -1,7 +1,7 @@
 steps: 
 - name: gcr.io/sparkonk8/gcloud
   id: deploy-infrastructure
-  env: ['CLOUDSDK_COMPUTE_ZONE=australia-southeast1-a', 'CLOUDSDK_CONTAINER_CLUSTER=features']
+  #env: ['CLOUDSDK_COMPUTE_ZONE=us-central1-f', 'CLOUDSDK_CONTAINER_CLUSTER=features']
   entrypoint: bash
   args:
   - '-c'
