@@ -1,5 +1,5 @@
 steps:
-- name: 'gcr.io/cloud-builders/gcloud'
+- name: 'gcr.io/sparkonk8/gcloud'
   args: 
   -'-run'
     gcloud compute instances create example-instance-1--zone us-central1-a
