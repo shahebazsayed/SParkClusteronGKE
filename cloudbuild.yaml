@@ -1,4 +1,3 @@
 steps:
-- name: 'gcr.io/sparkonk8/gcloud'
-  args: 
-  -gcloud compute instances create example-instance-1--zone us-central1-a
+- name: 'gcr.io/$PROJECT_ID/gcloud'
+  args: ['info']
