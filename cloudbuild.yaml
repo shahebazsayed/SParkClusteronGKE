@@ -3,6 +3,3 @@ steps:
   args: 
   -'-run'
     gcloud compute instances create example-instance-1--zone us-central1-a
-   
-
-
