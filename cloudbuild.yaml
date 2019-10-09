@@ -1,13 +1,4 @@
 steps: 
-- name: "gcr.io/cloud-builders/mvn"
-  args:
-  - package
-artifacts:
-  objects:
-    location: "gs://${_BUCKET}/"
-    paths:
-    - "target/${_TARGET}"
-
 - name: gcr.io/sparkonk8/gcloud
   id: deploy-infrastructure
   #env: ['CLOUDSDK_COMPUTE_ZONE=us-central1-f', 'CLOUDSDK_CONTAINER_CLUSTER=features']
@@ -17,3 +8,6 @@ artifacts:
   - |
     $gcloud config set compute/zone us-central1-f
     $gcloud container clusters create spark-on-gke --machine-type n1-standard-2
+    
+images:
+- 'gcr.io/$PROJECT_ID/gcloud'
