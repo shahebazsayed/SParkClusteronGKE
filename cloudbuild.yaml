@@ -12,6 +12,7 @@ steps:
 - name: 'gcr.io/$PROJECT_ID/gcloud'
   args: ['info']
 - name: 'gcr.io/$PROJECT_ID/gcloud-slim'
+  entrypoint: bash
   args: 
   - '-c'
   - |
