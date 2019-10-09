@@ -1,15 +1,21 @@
-steps: 
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=gcloud-slim', '--tag=gcr.io/sparkonk8/gcloud-slim', '-f', 'Dockerfile.slim', '.']
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/sparkonk8/gcloud', '-f', 'Dockerfile', '.']
-- name: gcr.io/sparkonk8/gcloud
-  id: deploy-infrastructure
-  #env: ['CLOUDSDK_COMPUTE_ZONE=us-central1-f', 'CLOUDSDK_CONTAINER_CLUSTER=features']
-  entrypoint: bash
-  args:
-  - '-c'
-  - |
-    gcloud config set compute/zone us-central1-f
-    gcloud container clusters create spark-on-gke --machine-type n1-standard-2
-    
+
+# Simple sanity check: invoke the new gcloud container to confirm that it was
+# built correctly.
+- name: 'gcr.io/sparkonk8/gcloud'
+  args: ['info']
+- name: 'gcr.io/sparkonk8/gcloud-slim'
+  args: ['info']
+
+# Invoke a command that requires auth, to check that it gets piped through
+# correctly.
+- name: 'gcr.io/sparkonk8/gcloud'
+  args: ['source', 'repos', 'clone', 'default']
+
 images:
 - 'gcr.io/sparkonk8/gcloud'
+- 'gcr.io/sparkonk8/gcloud-slim'
