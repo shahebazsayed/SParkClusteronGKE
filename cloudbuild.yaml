@@ -1,14 +1,10 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcloud-slim', '--tag=gcr.io/sparkonk8/gcloud-slim', '-f', 'Dockerfile.slim', '.']
-- name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/sparkonk8/gcloud', '-f', 'Dockerfile', '.']
 
 # Simple sanity check: invoke the new gcloud container to confirm that it was
 # built correctly.
 - name: 'gcr.io/sparkonk8/gcloud'
-  args: ['info']
-- name: 'gcr.io/sparkonk8/gcloud-slim'
   args: ['info']
 
 # Invoke a command that requires auth, to check that it gets piped through
@@ -18,4 +14,3 @@ steps:
 
 images:
 - 'gcr.io/sparkonk8/gcloud'
-- 'gcr.io/sparkonk8/gcloud-slim'
