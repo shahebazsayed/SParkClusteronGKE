@@ -8,13 +8,14 @@ artifacts:
     paths:
     - "target/${_TARGET}"
  
-- name: gcr.io/cloud-builders/gcloud
+- name: gcr.io/cloud-builders/kubectl
   id: deploy-infrastructure
-  env: ['CLOUDSDK_COMPUTE_ZONE=us-central1-f', 'CLOUDSDK_CONTAINER_CLUSTER=features']
+  env: ['CLOUDSDK_COMPUTE_ZONE=australia-southeast1-a', 'CLOUDSDK_CONTAINER_CLUSTER=features']
   entrypoint: bash
   args:
   - '-c'
   - |
-   gcloud config set compute/zone us-central1-f
-   gcloud container clusters create spark-on-gke --machine-type n1-standard-2
-  
+    tag=`cat tag.txt`
+    sed -e "s|_BRANCH_NAME|$BRANCH_NAME|g" -e "s|_TAG|$tag|g" deployment-template.yaml | tee deployment.yaml
+    gcloud container clusters get-credentials --project="gke-playground" --zone="australia-southeast1-a" "features"
+    kubectl apply -f deployment.yaml
