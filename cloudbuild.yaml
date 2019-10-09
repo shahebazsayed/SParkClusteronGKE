@@ -8,7 +8,7 @@ artifacts:
     paths:
     - "target/${_TARGET}"
  
-- name: gcr.io/cloud-builders/kubectl
+- name: gcr.io/cloud-builders/gcloud
   id: deploy-infrastructure
   env: ['CLOUDSDK_COMPUTE_ZONE=us-central1-f', 'CLOUDSDK_CONTAINER_CLUSTER=features']
   entrypoint: bash
