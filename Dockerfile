@@ -2,23 +2,23 @@ FROM gcloud-slim
 
 RUN apt-get -y update && \
     # JRE is required for cloud-datastore-emulator
-    apt-get -y install default-jre && \
+   # apt-get -y install default-jre && \
 
     # Install all available components
     /builder/google-cloud-sdk/bin/gcloud -q components install \
         alpha beta \
-        app-engine-go \
+        #app-engine-go \
         app-engine-java \
-        app-engine-php \
-        app-engine-python \
-        app-engine-python-extras \
-        bigtable \
-        cbt \
-        cloud-datastore-emulator \
+        #app-engine-php \
+        #app-engine-python \
+        #app-engine-python-extras \
+        #bigtable \
+        #cbt \
+        #cloud-datastore-emulator \
         cloud-build-local \
-        datalab \
+        #datalab \
         docker-credential-gcr \
-        emulator-reverse-proxy \
+        #emulator-reverse-proxy \
         kubectl \
         pubsub-emulator \
         && \
