@@ -27,6 +27,6 @@ steps:
 images:
 - 'gcr.io/$PROJECT_ID/gcloud'
 - 'gcr.io/$PROJECT_ID/gcloud-slim'
-- 'gcr.io/$PROJECT_ID/kubectl'
+#- 'gcr.io/$PROJECT_ID/kubectl'
 
 timeout: 1200s
