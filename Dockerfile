@@ -3,6 +3,13 @@ FROM gcloud-slim
 RUN apt-get -y update && \
     # JRE is required for cloud-datastore-emulator
     apt-get -y install default-jre && \
+    
+    
+    RUN /builder/google-cloud-sdk/bin/gcloud -q components install kubectl
+
+COPY kubectl.bash /builder/kubectl.bash
+
+ENTRYPOINT ["/builder/kubectl.bash"]
 
     # Install all available components
     /builder/google-cloud-sdk/bin/gcloud -q components install \
