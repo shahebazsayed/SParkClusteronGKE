@@ -1,4 +1,4 @@
-FROM gcloud-slim
+FROM gcr.io/sparkonk8/gcloud-slim:latest
 
 RUN apt-get -y update && \
     apt-get -y install default-jre && \
