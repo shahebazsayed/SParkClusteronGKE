@@ -24,11 +24,25 @@ steps:
   - |
     gcloud config set compute/zone us-central1-f
     gcloud container clusters create spark-on-gke --machine-type n1-standard-2
- 
+ #step5
+ - name: 'gcr.io/cloud-builders/docker'
+   args: ['build', '--tag=gcr.io/$PROJECT_ID/kubectl','-f', 'Dockerfile.kubectl', '.']
+ #step6
+ - name: 'gcr.io/$PROJECT_ID/gcloud-slim'
+   entrypoint: bash
+   args: 
+   - '-c'
+   - ;
+    kubectl create -f namespace-spark-cluster.yaml
+    CURRENT_CONTEXT=$(kubectl config view -o jsonpath='{.current-context}')
+    USER_NAME=$(kubectl config view -o jsonpath='{.contexts[?(@.name == "'"${CURRENT_CONTEXT}"'")].context.user}')
+    CLUSTER_NAME=$(kubectl config view -o jsonpath='{.contexts[?(@.name == "'"${CURRENT_CONTEXT}"'")].context.cluster}')
+    kubectl config set-context spark --namespace=spark-cluster --cluster=${CLUSTER_NAME} --user=${USER_NAME}
+    
 
 images:
 - 'gcr.io/$PROJECT_ID/gcloud'
 - 'gcr.io/$PROJECT_ID/gcloud-slim'
-#- 'gcr.io/$PROJECT_ID/kubectl'
+- 'gcr.io/$PROJECT_ID/kubectl'
 
 timeout: 1200s
