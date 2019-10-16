@@ -7,8 +7,7 @@ steps:
   args: ['pull', 'gcr.io/$PROJECT_ID/gcloud-slim']
   #step2
 - name: 'gcr.io/cloud-builders/docker'
-  #args: ['build', '--tag=gcr.io/$PROJECT_ID/gcloud', '-f', 'Dockerfile', '.']
-  args: ['pull', 'gcr.io/$PROJECT_ID/gcloud']
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/gcloud', '-f', 'Dockerfile', '.']
 
 # Simple sanity check: invoke the new gcloud container to confirm that it was
 # built correctly.
