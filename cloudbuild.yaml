@@ -1,19 +1,22 @@
 # In this directory, run the following command to build this builder.
 # $ gcloud builds submit . --config=cloudbuild.yaml
-#step0
+
 steps:
+#step1
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcloud-slim', '--tag=gcr.io/$PROJECT_ID/gcloud-slim', '-f', 'Dockerfile.slim', '.']
-  #step1
+  #step2
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$PROJECT_ID/gcloud', '-f', 'Dockerfile', '.']
 
 # Simple sanity check: invoke the new gcloud container to confirm that it was
 # built correctly.
-
-#- name: 'gcr.io/$PROJECT_ID/gcloud'
- # args: ['info']
-# Step2
+#step3
+- name: 'gcr.io/$PROJECT_ID/gcloud'
+  args: ['info']
+- name: 'gcr.io/$PROJECT_ID/gcloud-slim'
+  args: ['info']
+# Step4
 - name: 'gcr.io/$PROJECT_ID/gcloud-slim'
   entrypoint: bash
   args: 
@@ -21,7 +24,6 @@ steps:
   - |
     gcloud config set compute/zone us-central1-f
     gcloud container clusters create spark-on-gke --machine-type n1-standard-2
- #step3
  
 
 images:
