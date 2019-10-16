@@ -25,6 +25,9 @@ RUN apt-get -y update && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf ~/.config/gcloud
 
+COPY kubectl.bash /builder/kubectl.bash
+
 ENV PATH=/builder/google-cloud-sdk/bin/:$PATH
 
 ENTRYPOINT ["/builder/google-cloud-sdk/bin/gcloud"]
+ENTRYPOINT ["/builder/kubectl.bash"]
