@@ -25,3 +25,5 @@ RUN apt-get -y update && \
     /builder/google-cloud-sdk/bin/gcloud components list
 
 RUN rm -rf /var/lib/apt/lists/*
+
+COPY test.sh /builder/test.sh
