@@ -4,7 +4,7 @@
 steps:
 #step1
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['pull', 'gcr.io/$PROJECT_ID/gcloud-slim']
+  args: ['pull', 'gcr.io/$PROJECT_ID/gcloud-slim', '.']
   #step2
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$PROJECT_ID/gcloud', '-f', 'Dockerfile', '.']
