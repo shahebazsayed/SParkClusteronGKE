@@ -8,8 +8,6 @@ steps:
   #step2
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$PROJECT_ID/gcloud', '-f', 'Dockerfile', '.']
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/$PROJECT_ID/kubectl','-f', 'Dockerfile.kubectl', '.']
 
 # Simple sanity check: invoke the new gcloud container to confirm that it was
 # built correctly.
@@ -19,7 +17,7 @@ steps:
 - name: 'gcr.io/$PROJECT_ID/gcloud-slim'
   args: ['info']
 # Step4
-- name: 'gcr.io/$PROJECT_ID/gcloud-slim'
+- name: 'gcr.io/$PROJECT_ID/gcloud'
   entrypoint: bash
   args: 
   - '-c'
@@ -30,4 +28,4 @@ steps:
 images:
 - 'gcr.io/$PROJECT_ID/gcloud'
 - 'gcr.io/$PROJECT_ID/gcloud-slim'
-- 'gcr.io/$PROJECT_ID/kubectl'
+
