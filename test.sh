@@ -1,6 +1,5 @@
 #!/bin/bash
 
-gcloud container clusters get-credentials spark-on-gke --zone us-central1-f --project sparkonk8
 kubectl create -f namespace-spark-cluster.yaml
 CURRENT_CONTEXT=$(kubectl config view -o jsonpath='{.current-context}')
 USER_NAME=$(kubectl config view -o jsonpath='{.contexts[?(@.name == "'"${CURRENT_CONTEXT}"'")].context.user}')
