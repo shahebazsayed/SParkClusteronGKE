@@ -8,6 +8,8 @@ steps:
   #step2
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$PROJECT_ID/gcloud', '-f', 'Dockerfile', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/kubectl','-f', 'Dockerfile.kubectl', '.']
 
 # Simple sanity check: invoke the new gcloud container to confirm that it was
 # built correctly.
@@ -24,11 +26,7 @@ steps:
   - |
     gcloud config set compute/zone us-central1-f
     gcloud container clusters create spark-on-gke --machine-type n1-standard-2
- #step5
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/$PROJECT_ID/kubectl','-f', 'Dockerfile.kubectl', '.']
-
-
+    
 images:
 - 'gcr.io/$PROJECT_ID/gcloud'
 - 'gcr.io/$PROJECT_ID/gcloud-slim'
