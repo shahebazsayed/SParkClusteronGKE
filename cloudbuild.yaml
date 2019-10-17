@@ -12,7 +12,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$PROJECT_ID/kubectl', '-f', 'Dockerfile.kubectl', '.']
   
- - name: 'gcr.io/cloud-builders/docker'
+- name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$PROJECT_ID/git', '-f', 'Dockerfile.git', '.']
 
 
@@ -57,4 +57,4 @@ images:
 - 'gcr.io/$PROJECT_ID/gcloud'
 - 'gcr.io/$PROJECT_ID/gcloud-slim'
 - 'gcr.io/$PROJECT_ID/kubectl'
--'gcr.io/$PROJECT_ID/git'
+- 'gcr.io/$PROJECT_ID/git'
