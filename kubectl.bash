@@ -29,19 +29,3 @@ else
 
 echo "Running: kubectl $@" >&2
 exec kubectl "$@"
-#Create a new namespace:
-kubectl create -f namespace-spark-cluster.yaml
-
-#Configure kubectl to work with the new namespace:
-CURRENT_CONTEXT=$(kubectl config view -o jsonpath='{.current-context}')
-USER_NAME=$(kubectl config view -o jsonpath='{.contexts[?(@.name == "'"${CURRENT_CONTEXT}"'")].context.user}')
-CLUSTER_NAME=$(kubectl config view -o jsonpath='{.contexts[?(@.name == "'"${CURRENT_CONTEXT}"'")].context.cluster}')
-kubectl config set-context spark --namespace=spark-cluster --cluster=${CLUSTER_NAME} --user=${USER_NAME}
-kubectl config use-context spark
-
-#Deploy the Spark master Replication Controller and Service:
-kubectl create -f spark-master-controller.yaml
-kubectl create -f spark-master-service.yaml
-
-#Next, start your Spark workers:
-kubectl create -f spark-worker-controller.yaml  
