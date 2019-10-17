@@ -25,10 +25,15 @@ steps:
     gcloud config set compute/zone us-central1-a
     gcloud container clusters create spark-on-gke --machine-type n1-standard-2
 # Step5
-#- name: 'gcr.io/cloud-builders/docker'
-#  entrypoint: gcloud container clusters get-credentials --REGION "us-central1-a" "$CLOUDSDK_CONTAINER_CLUSTER"
- # args: ['build', '--tag=gcr.io/$PROJECT_ID/kubectl', '.']
+- name: 'gcr.io/$PROJECT_ID/git'
+  args: ['clone', 'gcloud source repos clone github_shahebazsayed_sparkclusterongke --project=sparkonk8']
   
+- name: 'gcr.io/$PROJECT_ID/gcloud'
+  entrypoint: bash
+  args: 
+  - '-c'
+  - |
+    cd /home/shahebaz_sayed/kubernetes-netapp/spark-s3
 # Step6
 - name: 'gcr.io/cloud-builders/kubectl'
   entrypoint: bash
@@ -36,9 +41,6 @@ steps:
   - '-c'
   - |
     kubectl create -f namespace-spark-cluster.yaml
-    CURRENT_CONTEXT=$(kubectl config view -o jsonpath='{.current-context}')
-    USER_NAME=$(kubectl config view -o jsonpath='{.contexts[?(@.name == "'"${CURRENT_CONTEXT}"'")].context.user}')
-    CLUSTER_NAME=$(kubectl config view -o jsonpath='{.contexts[?(@.name == "'"${CURRENT_CONTEXT}"'")].context.cluster}')
     kubectl config set-context spark --namespace=spark-cluster --cluster=$(kubectl config view -o jsonpath='{.contexts[?(@.name == "'"${CURRENT_CONTEXT}"'")].context.cluster}') --user=${USER_NAME}
     kubectl config use-context spark
     kubectl create -f spark-master-controller.yaml
