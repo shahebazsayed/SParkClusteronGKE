@@ -35,7 +35,7 @@ steps:
   - |
     cd /home/shahebaz_sayed/kubernetes-netapp/spark-s3
 # Step6
-- name: 'gcr.io/cloud-builders/docker'
+- name: 'gcr.io/cloud-builders/kubectl'
   entrypoint: bash
   args: 
   - '-c'
