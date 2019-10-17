@@ -2,28 +2,25 @@
 # $ gcloud builds submit . --config=cloudbuild.yaml
 
 steps:
-#step1
+#step0
 - name: 'gcr.io/cloud-builders/docker'
   args: ['pull', 'gcr.io/$PROJECT_ID/gcloud-slim']
-  #step2
+  #step1
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$PROJECT_ID/gcloud', '-f', 'Dockerfile', '.']
-  
+  #step2
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$PROJECT_ID/kubectl', '-f', 'Dockerfile.kubectl', '.']
-  
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/$PROJECT_ID/git', '-f', 'Dockerfile.git', '.']
-
 
 # Simple sanity check: invoke the new gcloud container to confirm that it was
 # built correctly.
 #step3
 - name: 'gcr.io/$PROJECT_ID/gcloud'
   args: ['info']
+  #step4
 - name: 'gcr.io/$PROJECT_ID/gcloud-slim'
   args: ['info']
-# Step4
+# Step5
 - name: 'gcr.io/$PROJECT_ID/gcloud'
   entrypoint: bash
   args: 
@@ -31,16 +28,7 @@ steps:
   - |
     gcloud config set compute/zone us-central1-a
     gcloud container clusters create spark-on-gke --machine-type n1-standard-2
-# Step5
-- name: 'gcr.io/$PROJECT_ID/git'
-  args: ['clone', 'gcloud source repos clone github_shahebazsayed_sparkclusterongke --project=sparkonk8']
-  
-- name: 'gcr.io/$PROJECT_ID/gcloud'
-  entrypoint: bash
-  args: 
-  - '-c'
-  - |
-    cd /home/shahebaz_sayed/kubernetes-netapp/spark-s3
+
 # Step6
 - name: 'gcr.io/cloud-builders/kubectl'
   entrypoint: bash
@@ -57,4 +45,3 @@ images:
 - 'gcr.io/$PROJECT_ID/gcloud'
 - 'gcr.io/$PROJECT_ID/gcloud-slim'
 - 'gcr.io/$PROJECT_ID/kubectl'
-- 'gcr.io/$PROJECT_ID/git'
