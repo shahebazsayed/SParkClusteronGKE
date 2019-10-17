@@ -29,7 +29,7 @@ steps:
   args: 
   - '-c'
   - |
-    gcloud config set compute/Region us-central1-a
+    gcloud config set compute/zone us-central1-a
     gcloud container clusters create spark-on-gke --machine-type n1-standard-2
 # Step5
 - name: 'gcr.io/$PROJECT_ID/git'
