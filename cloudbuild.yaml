@@ -24,10 +24,30 @@ steps:
   - |
     gcloud config set compute/zone us-central1-f
     gcloud container clusters create spark-on-gke --machine-type n1-standard-2
-    gcloud container clusters get-credentials spark-on-gke --zone us-central1-f --project sparkonk8
-    /builder/test.sh
+# Step5
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: gcloud container clusters get-credentials --zone "$CLOUDSDK_COMPUTE_REGION" "$CLOUDSDK_CONTAINER_CLUSTER"
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/kubectl', '.']
+  
+# Step6
+- name: 'gcr.io/cloud-builders/kubectl'
+  entrypoint: bash
+  args: 
+  - '-c'
+  - |
+    kubectl create -f namespace-spark-cluster.yaml
+    CURRENT_CONTEXT=$(kubectl config view -o jsonpath='{.current-context}')
+    USER_NAME=$(kubectl config view -o jsonpath='{.contexts[?(@.name == "'"${CURRENT_CONTEXT}"'")].context.user}')
+    CLUSTER_NAME=$(kubectl config view -o jsonpath='{.contexts[?(@.name == "'"${CURRENT_CONTEXT}"'")].context.cluster}')
+    kubectl config set-context spark --namespace=spark-cluster --cluster=$(kubectl config view -o jsonpath='{.contexts[?(@.name == "'"${CURRENT_CONTEXT}"'")].context.cluster}') --user=${USER_NAME}
+    kubectl config use-context spark
+    kubectl create -f spark-master-controller.yaml
+    kubectl create -f spark-master-service.yaml
+    kubectl create -f spark-worker-controller.yaml
+
+
 
 images:
 - 'gcr.io/$PROJECT_ID/gcloud'
 - 'gcr.io/$PROJECT_ID/gcloud-slim'
-
+- 'gcr.io/$PROJECT_ID/kubectl'
