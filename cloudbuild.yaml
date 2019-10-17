@@ -1,5 +1,6 @@
 # In this directory, run the following command to build this builder.
 # $ gcloud builds submit . --config=cloudbuild.yaml
+#This pipeline code builds k8 GKE cluster and deploys spark application on that 
 
 steps:
 #step0
