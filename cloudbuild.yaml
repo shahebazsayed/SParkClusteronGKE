@@ -25,9 +25,9 @@ steps:
     gcloud config set compute/zone us-central1-a
     gcloud container clusters create spark-on-gke --machine-type n1-standard-2
 # Step5
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: gcloud container clusters get-credentials --REGION "us-central1-a" "$CLOUDSDK_CONTAINER_CLUSTER"
-  args: ['build', '--tag=gcr.io/$PROJECT_ID/kubectl', '.']
+#- name: 'gcr.io/cloud-builders/docker'
+#  entrypoint: gcloud container clusters get-credentials --REGION "us-central1-a" "$CLOUDSDK_CONTAINER_CLUSTER"
+ # args: ['build', '--tag=gcr.io/$PROJECT_ID/kubectl', '.']
   
 # Step6
 - name: 'gcr.io/cloud-builders/kubectl'
