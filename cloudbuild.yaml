@@ -3,6 +3,8 @@
 #This pipeline code builds k8 GKE cluster and deploys spark application on that 
 
 steps:
+
+#step0
 - name: "gcr.io/cloud-builders/mvn"
   args:
   - package
@@ -11,7 +13,7 @@ artifacts:
     location: "gs://${_BUCKET}/"
     paths:
     - "target/${_TARGET}"
-#step0
+
 - name: 'gcr.io/cloud-builders/docker'
   args: ['pull', 'gcr.io/$PROJECT_ID/gcloud-slim']
   #step1
@@ -19,7 +21,7 @@ artifacts:
   args: ['pull', 'gcr.io/$PROJECT_ID/gcloud']
   #step2
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/$PROJECT_ID/kubectl', '-f', 'Dockerfile.kubectl', '.']
+  args: ['pull', 'gcr.io/$PROJECT_ID/kubectl']
 
 # Simple sanity check: invoke the new gcloud container to confirm that it was
 # built correctly.
