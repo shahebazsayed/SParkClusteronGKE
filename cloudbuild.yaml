@@ -16,7 +16,7 @@ steps:
 - name: "gcr.io/cloud-builders/mvn"
   args:
   - package
-artifacts:
+  artifacts:
   objects:
     location: "gs://${_BUCKET}/"
     paths:
