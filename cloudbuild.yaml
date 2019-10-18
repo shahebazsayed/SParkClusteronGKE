@@ -3,7 +3,6 @@
 #This pipeline code builds k8 GKE cluster and deploys spark application on that 
 
 steps:
-
 #step0
 - name: "gcr.io/cloud-builders/mvn"
   args:
