@@ -5,14 +5,12 @@
 steps:
 #step0
 - name: "gcr.io/cloud-builders/mvn"
-  args:
-  - package
+  args: ['package']
 artifacts:
   objects:
     location: "gs://${_BUCKET}/"
     paths:
     - "target/${_TARGET}"
-
 - name: 'gcr.io/cloud-builders/docker'
   args: ['pull', 'gcr.io/$PROJECT_ID/gcloud-slim']
   #step1
