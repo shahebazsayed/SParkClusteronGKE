@@ -12,16 +12,7 @@ steps:
   #step2
 - name: 'gcr.io/cloud-builders/docker'
   args: ['pull', 'gcr.io/$PROJECT_ID/kubectl']
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build','--tag=gcr.io/$PROJECT_ID/mvn', '-f', 'Dockerfile.maven', '.']
-#steps:
-- name: "gcr.io/cloud-builders/mvn"
-  args: ['package']
-  artifacts:
-   objects:
-     location: "gs://artifactforsparkonk8/"
-     paths:
-     location: ['*']
+
 # Simple sanity check: invoke the new gcloud container to confirm that it was
 # built correctly.
 #step3
