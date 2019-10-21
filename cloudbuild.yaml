@@ -18,10 +18,10 @@ steps:
 - name: "gcr.io/cloud-builders/mvn"
   args: ['package']
   artifacts:
-  objects:
-    location: "gs://artifactforsparkonk8/"
-    paths:
-    location: ['*']
+   objects:
+     location: "gs://artifactforsparkonk8/"
+     paths:
+     location: ['*']
 # Simple sanity check: invoke the new gcloud container to confirm that it was
 # built correctly.
 #step3
